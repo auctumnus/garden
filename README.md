@@ -1,18 +1,21 @@
-# Quartz v4
+# garden
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+my fork of [quartz](https://jzhao.xyz)
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
-Quartz v4 features a from-the-ground rewrite focusing on end-user extensibility and ease-of-use.
+## setup
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+1. `npm i`
+2. `ln -s ~/share/garden ./content`
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+### serve (local dev)
 
-## Sponsors
+`npm run quartz build --serve`
 
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+### deploy
+
+1. `npm run quartz build`
+2. deploy `./public`
+
+## license
+
+quartz and thus garden qua software is MIT; garden qua content is CC-BY-SA 🅭🅯🄎
