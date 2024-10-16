@@ -20,6 +20,10 @@ const animateToDesired = () => {
 
 }
 
+const applyPosition = ({top, left}: { top: number, left: number }) => {
+    parallaxEl.style.backgroundPosition = `${left}% ${top}%`
+}
+
 const findDesiredPosition = () => {
     const topPercentage = window.scrollY / (document.body.scrollHeight - window.innerHeight)
     let top = lerp(MIN_TOP, MAX_TOP, topPercentage)
@@ -28,28 +32,48 @@ const findDesiredPosition = () => {
         top = MIN_TOP
     }
     const leftPercentage = lastMouseX / window.innerWidth
-    const left = lerp(30, 70, leftPercentage)
+    const left = lerp(45, 55, leftPercentage)
     const mouseTopPercentage = lastMouseY / window.innerHeight
 
-    const mouseContribution = lerp(-5, 5, mouseTopPercentage)
+    const mouseContribution = lerp(-1, 1, mouseTopPercentage)
 
     top += mouseContribution
 
-
-    parallaxEl.style.backgroundPosition = `${left}% ${top}%`
-
-    // desiredTop = top
-    // desiredLeft = left
+    return { top, left }
 }
 
 const scrollHandler = () => {
-    findDesiredPosition()
+    applyPosition(findDesiredPosition())
 }
 
 const mouseHandler = (event: MouseEvent) => {
     lastMouseX = event.clientX
     lastMouseY = event.clientY
-    findDesiredPosition()
+    applyPosition(findDesiredPosition())
+}
+
+const animateFrom = (top: number, left: number) => {
+    let currentTop = top;
+    let currentLeft = left;
+
+    const { top: desiredTop, left: desiredLeft } = findDesiredPosition();
+
+    const animationLength = 355;
+    const animationStep = 1000/144;
+    const alphaPerStep = 1 / (animationLength / animationStep);
+
+    let interval = setInterval(() => {
+        console.log('meow')
+        currentTop = lerp(currentTop, desiredTop, alphaPerStep)
+        currentLeft = lerp(currentLeft, desiredLeft, alphaPerStep)
+
+        applyPosition({ top: currentTop, left: currentLeft })
+
+        if(Math.abs(currentTop - desiredTop) < 0.01 && Math.abs(currentLeft - desiredLeft) < 0.01) {
+            applyPosition({ top: desiredTop, left: desiredLeft })
+            clearInterval(interval)
+        }
+    }, animationLength)
 }
 
 document.addEventListener("scroll", scrollHandler, { passive: true })
@@ -58,12 +82,14 @@ document.addEventListener("mousemove", mouseHandler, { passive: true })
 
 document.addEventListener("DOMContentLoaded", () => {
     parallaxEl = document.getElementById("background-parallax")!
-    findDesiredPosition()
-    setInterval(animateToDesired, 1000/60)
+    applyPosition(findDesiredPosition())
 })
 
 document.addEventListener("nav", () => {
     parallaxEl = document.getElementById("background-parallax")!
-    findDesiredPosition()
+    // const currentTop = parseFloat(parallaxEl.style.backgroundPositionY.replace("%","") || "0")
+    // const currentLeft = parseFloat(parallaxEl.style.backgroundPositionX.replace("%","") || "0")
+    //animateFrom(currentTop, currentLeft)
+    applyPosition(findDesiredPosition())
 })
 

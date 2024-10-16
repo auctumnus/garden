@@ -44,8 +44,10 @@ html {
 
 #background-parallax {
   background-image: image-set(
-    url("/static/pleroma light.png") type("image/png"),
-    url("/static/pleroma light.webp") type("image/webp")
+    url("/static/pleroma light 2x.webp") type("image/webp") 2x,
+    url("/static/pleroma light 2x.png") type("image/png") 2x,
+    url("/static/pleroma light 1x.webp") type("image/webp") 1x,
+    url("/static/pleroma light 1x.png") type("image/png") 1x
   );
   background-repeat: no-repeat;
   background-position-x: 50%;
@@ -57,6 +59,16 @@ html {
   display: block;
   z-index: 0;
   transform: scale(1.2);
+  opacity: 0.5;
+
+  @include dark {
+    background-image: image-set(
+      url("/static/pleroma dark 2x.webp") type("image/webp") 2x,
+      url("/static/pleroma dark 2x.png") type("image/png") 2x,
+      url("/static/pleroma dark 1x.webp") type("image/webp") 1x,
+      url("/static/pleroma dark 1x.png") type("image/png") 1x
+    );
+  }
 }
 
 #quartz-root {
