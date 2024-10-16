@@ -1,9 +1,28 @@
+:root {
+  --toc-transition-duration: 0.35s;
+  --toc-transition-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
 .toc {
   display: flex;
   flex-direction: column;
+
+  border: 1px solid transparent;
+  border-left-width: 0px;
+  border-right-width: 0px;
+
+  margin: 1rem 0;
+  padding-top: 1rem;
+
+  transition: border-color var(--toc-transition-duration) var(--toc-transition-function);
+
   &.desktop-only {
     display: flex;
     max-height: 40%;
+  }
+
+  &:not(:has(.collapsed)) {
+    border-color: var(--lightgray);
   }
 }
 
@@ -17,10 +36,11 @@ button#toc {
   display: flex;
   align-items: center;
 
-  & h3 {
+  & .toc-title {
     font-size: 1rem;
     display: inline-block;
     margin: 0;
+    font-weight: 500;
   }
 
   & .fold {
@@ -38,19 +58,19 @@ button#toc {
   list-style: none;
   overflow: hidden;
   overflow-y: auto;
-  max-height: 100%;
-  transition:
-    max-height 0.35s ease,
-    visibility 0s linear 0s;
+  transition: all var(--toc-transition-duration) var(--toc-transition-function);
   position: relative;
   visibility: visible;
 
+  display: grid;
+
+  grid-template-rows: 1fr;
+
+  padding-bottom: 1rem;
+
   &.collapsed {
-    max-height: 0;
-    transition:
-      max-height 0.35s ease,
-      visibility 0s linear 0.35s;
-    visibility: hidden;
+    grid-template-rows: 0fr;
+    padding-bottom: 0;
   }
 
   &.collapsed > .overflow::after {
@@ -58,18 +78,16 @@ button#toc {
   }
 
   & ul {
+    overflow: hidden;
     list-style: none;
     margin: 0.5rem 0;
     padding: 0;
     & > li > a {
       color: var(--dark);
-      opacity: 0.35;
+      opacity: 0.75;
       transition:
         0.5s ease opacity,
         0.3s ease color;
-      &.in-view {
-        opacity: 0.75;
-      }
     }
   }
   > ul.overflow {

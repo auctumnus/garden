@@ -67,6 +67,7 @@ export const TRANSLATIONS = {
 } as const
 
 export const defaultTranslation = "en-US"
+// @ts-ignore i dont care about other locales i only run this in en-us
 export const i18n = (locale: ValidLocale): Translation => TRANSLATIONS[locale ?? defaultTranslation]
 export type ValidLocale = keyof typeof TRANSLATIONS
 export type ValidCallout = keyof CalloutTranslation

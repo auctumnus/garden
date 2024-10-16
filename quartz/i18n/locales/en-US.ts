@@ -28,6 +28,7 @@ export default {
     themeToggle: {
       lightMode: "Light mode",
       darkMode: "Dark mode",
+      autoMode: "Auto mode",
     },
     explorer: {
       title: "Explorer",

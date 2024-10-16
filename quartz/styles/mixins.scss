@@ -1,0 +1,10 @@
+@mixin dark {
+    [saved-theme="dark"] & {
+        @content;
+    }
+    @media (prefers-color-scheme: dark) {
+        [saved-theme="auto"] & {
+            @content;
+        }
+    }
+}

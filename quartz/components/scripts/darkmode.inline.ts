@@ -1,8 +1,7 @@
-const userPref = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"
-const currentTheme = localStorage.getItem("theme") ?? userPref
+const currentTheme = localStorage.getItem("theme") || "auto"
 document.documentElement.setAttribute("saved-theme", currentTheme)
 
-const emitThemeChangeEvent = (theme: "light" | "dark") => {
+const emitThemeChangeEvent = (theme: "light" | "dark" | "auto") => {
   const event: CustomEventMap["themechange"] = new CustomEvent("themechange", {
     detail: { theme },
   })
@@ -11,15 +10,16 @@ const emitThemeChangeEvent = (theme: "light" | "dark") => {
 
 document.addEventListener("nav", () => {
   const switchTheme = (e: Event) => {
-    const newTheme =
-      document.documentElement.getAttribute("saved-theme") === "dark" ? "light" : "dark"
-    document.documentElement.setAttribute("saved-theme", newTheme)
-    localStorage.setItem("theme", newTheme)
-    emitThemeChangeEvent(newTheme)
-  }
-
-  const themeChange = (e: MediaQueryListEvent) => {
-    const newTheme = e.matches ? "dark" : "light"
+    const newTheme = (() => {
+      const savedTheme = document.documentElement.getAttribute("saved-theme")
+      if (savedTheme === "light") {
+        return "dark"
+      } else if (savedTheme === "dark") {
+        return "auto"
+      } else {
+        return "light"
+      }
+    })()
     document.documentElement.setAttribute("saved-theme", newTheme)
     localStorage.setItem("theme", newTheme)
     emitThemeChangeEvent(newTheme)
@@ -29,9 +29,4 @@ document.addEventListener("nav", () => {
   const themeButton = document.querySelector("#darkmode") as HTMLButtonElement
   themeButton.addEventListener("click", switchTheme)
   window.addCleanup(() => themeButton.removeEventListener("click", switchTheme))
-
-  // Listen for changes in prefers-color-scheme
-  const colorSchemeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
-  colorSchemeMediaQuery.addEventListener("change", themeChange)
-  window.addCleanup(() => colorSchemeMediaQuery.removeEventListener("change", themeChange))
 })

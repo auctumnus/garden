@@ -17,7 +17,7 @@ interface RenderComponents {
   afterBody: QuartzComponent[]
   left: QuartzComponent[]
   right: QuartzComponent[]
-  footer: QuartzComponent
+  footer: QuartzComponent[]
 }
 
 const headerRegex = new RegExp(/h[1-6]/)
@@ -190,7 +190,6 @@ export function renderPage(
     pageBody: Content,
     afterBody,
     left,
-    right,
     footer: Footer,
   } = components
   const Header = HeaderConstructor()
@@ -204,12 +203,12 @@ export function renderPage(
     </div>
   )
 
-  const RightComponent = (
-    <div class="right sidebar">
-      {right.map((BodyComponent) => (
-        <BodyComponent {...componentData} />
+  const FooterComponent = (
+    <footer>
+      {Footer.map((FooterComponent) => (
+        <FooterComponent {...componentData} />
       ))}
-    </div>
+    </footer>
   )
 
   const lang = componentData.fileData.frontmatter?.lang ?? cfg.locale?.split("-")[0] ?? "en"
@@ -217,6 +216,7 @@ export function renderPage(
     <html lang={lang}>
       <Head {...componentData} />
       <body data-slug={slug}>
+        <div id="background-parallax" />
         <div id="quartz-root" class="page">
           <Body {...componentData}>
             {LeftComponent}
@@ -241,8 +241,7 @@ export function renderPage(
                 ))}
               </div>
             </div>
-            {RightComponent}
-            <Footer {...componentData} />
+            {FooterComponent}
           </Body>
         </div>
       </body>

@@ -25,7 +25,7 @@ const Backlinks: QuartzComponent = ({
             </li>
           ))
         ) : (
-          <li>{i18n(cfg.locale).components.backlinks.noBacklinksFound}</li>
+          <li class="no-backlinks">{i18n(cfg.locale).components.backlinks.noBacklinksFound}</li>
         )}
       </ul>
     </div>

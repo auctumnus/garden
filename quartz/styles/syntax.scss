@@ -1,17 +1,20 @@
+@use 'mixins' as *;
+
 code[data-theme*=" "] {
   color: var(--shiki-light);
   background-color: var(--shiki-light-bg);
+
+  @include dark {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
 }
 
 code[data-theme*=" "] span {
   color: var(--shiki-light);
+
+  @include dark {
+    color: var(--shiki-dark);
+  }
 }
 
-[saved-theme="dark"] code[data-theme*=" "] {
-  color: var(--shiki-dark);
-  background-color: var(--shiki-dark-bg);
-}
-
-[saved-theme="dark"] code[data-theme*=" "] span {
-  color: var(--shiki-dark);
-}

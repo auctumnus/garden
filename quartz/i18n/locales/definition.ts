@@ -30,6 +30,7 @@ export interface Translation {
     themeToggle: {
       lightMode: string
       darkMode: string
+      autoMode: string
     }
     explorer: {
       title: string

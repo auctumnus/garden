@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
+  overflow-x: clip;
+
   &.desktop-only {
     @media all and not ($mobile) {
       display: flex;
@@ -37,6 +39,7 @@ button#explorer {
     font-size: 1rem;
     display: inline-block;
     margin: 0;
+    font-weight: 600;
   }
 
   & .fold {
@@ -81,6 +84,11 @@ button#explorer {
       max-height 0.35s ease,
       visibility 0s linear 0.35s;
     visibility: hidden;
+    overflow-y: clip;
+
+    & > ul {
+      overflow: clip;
+    }
   }
 
   & ul {
@@ -99,6 +107,7 @@ button#explorer {
   }
   > #explorer-ul {
     max-height: none;
+    width: 100%;
   }
 }
 

@@ -358,6 +358,7 @@ async function renderGraph(container: string, fullSlug: FullSlug) {
     resolution: window.devicePixelRatio,
     eventMode: "static",
   })
+  app.canvas.ariaLabel = "Link graph"
   graph.appendChild(app.canvas)
 
   const stage = app.stage

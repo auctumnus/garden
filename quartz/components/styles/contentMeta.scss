@@ -2,12 +2,55 @@
   margin-top: 0;
   color: var(--gray);
 
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  font-size: small;
+
   &[show-comma="true"] {
     > span:not(:last-child) {
       margin-right: 8px;
 
       &::after {
-        content: ",";
+        margin-left: 8px;
+        content: "·";
+      }
+    }
+  }
+
+  span {
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.5ch;
+    align-items: center;
+
+    svg {
+      width: 1.5em;
+      height: 1.5em;
+      fill: var(--gray);
+    }
+  }
+
+  @media (max-width: 480px) {
+    &[show-comma="true"] {
+      > span:nth-child(even) {
+        flex-basis: 50%;
+
+        &::after {
+          content: "";
+        }
+      }
+
+      > span:not(:nth-child(even)) {
+        margin-right: 8px;
+  
+        &::after {
+          margin-left: 8px;
+          content: "·";
+        }
       }
     }
   }

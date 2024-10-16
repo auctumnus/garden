@@ -6,7 +6,6 @@
   border: none;
   width: 20px;
   height: 20px;
-  margin: 0 10px;
   text-align: inherit;
 
   & svg {
@@ -16,6 +15,21 @@
     top: calc(50% - 10px);
     fill: var(--darkgray);
     transition: opacity 0.1s ease;
+  }
+}
+
+#links-area {
+  display: flex;
+  flex-direction: row;
+
+  max-width: 14rem;
+  justify-content: center;
+
+  margin-left: 0.7rem;
+
+  .divider {
+    margin: 0 10px;
+    color: var(--darkgray);
   }
 }
 
@@ -34,6 +48,21 @@
   & > #nightIcon {
     display: inline;
   }
+  & > #autoIcon {
+    display: none;
+  }
+}
+
+:root[saved-theme="auto"] .darkmode {
+  & > #dayIcon {
+    display: none;
+  }
+  & > #nightIcon {
+    display: none;
+  }
+  & > #autoIcon {
+    display: inline;
+  }
 }
 
 :root .darkmode {
@@ -41,6 +70,9 @@
     display: inline;
   }
   & > #nightIcon {
+    display: none;
+  }
+  & > #autoIcon {
     display: none;
   }
 }
