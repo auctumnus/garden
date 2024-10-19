@@ -1,4 +1,4 @@
-let parallaxEl: HTMLElement
+let parallaxEl: HTMLElement[]
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 
@@ -21,7 +21,7 @@ const animateToDesired = () => {
 }
 
 const applyPosition = ({top, left}: { top: number, left: number }) => {
-    parallaxEl.style.backgroundPosition = `${left}% ${top}%`
+    parallaxEl.forEach(el => el.style.objectPosition = `${left}% ${top}%`)
 }
 
 const findDesiredPosition = () => {
@@ -81,12 +81,22 @@ document.addEventListener("scroll", scrollHandler, { passive: true })
 document.addEventListener("mousemove", mouseHandler, { passive: true })
 
 document.addEventListener("DOMContentLoaded", () => {
-    parallaxEl = document.getElementById("background-parallax")!
+    // parallaxEl = [...document.querySelectorAll(".background-parallax")!] as HTMLElement[]
+    // const timeouts = parallaxEl.map(el => setTimeout(() => {
+    //     el.style.opacity = "0.5"
+    //     console.log('timeout')
+    // }, 300)) // if it isn't loaded after 300ms we have some serious issue anyways and i don't care about how it looks
+    // parallaxEl.forEach((el, i) => el.onload = () => {
+    //     clearTimeout(timeouts[i])
+    //     el.style.opacity = "0.5"
+    //     console.log('loaded')
+    // })
+    
     applyPosition(findDesiredPosition())
 })
 
 document.addEventListener("nav", () => {
-    parallaxEl = document.getElementById("background-parallax")!
+    parallaxEl = [...document.querySelectorAll(".background-parallax")!] as HTMLElement[]
     // const currentTop = parseFloat(parallaxEl.style.backgroundPositionY.replace("%","") || "0")
     // const currentLeft = parseFloat(parallaxEl.style.backgroundPositionX.replace("%","") || "0")
     //animateFrom(currentTop, currentLeft)

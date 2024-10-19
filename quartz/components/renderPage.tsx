@@ -216,7 +216,23 @@ export function renderPage(
     <html lang={lang}>
       <Head {...componentData} />
       <body data-slug={slug}>
-        <div id="background-parallax" />
+        {/* TODO: any way to not load in both all the time? would be easy if you couldn't be in dark mode and have (prefers-color-scheme:light) at the same time */}
+        <img class="background-parallax light" src="/static/pleroma-light.svg" />
+        <img class="background-parallax dark" src="/static/pleroma-dark.svg" />
+        <noscript>
+          <style dangerouslySetInnerHTML={{__html:".background-parallax{opacity:.5}"}}></style>
+        </noscript>
+        {/* 
+          1. get each `img.background-parallax` above,
+          2. set each's `onload` to make the opacity .5,
+          3. set a 300ms timeout to do the same 
+
+          this ensures the image smoothly loads in in every case other than 1. no-js 2. really bad internet connections
+          */
+        }
+        <script
+          dangerouslySetInnerHTML={{__html:`[...document.querySelectorAll("img.background-parallax")].map(e=>setTimeout(e.onload=()=>{e.style.opacity=.5},300))`}}>
+        </script>
         <div id="quartz-root" class="page">
           <Body {...componentData}>
             {LeftComponent}
