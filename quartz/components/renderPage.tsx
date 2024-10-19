@@ -9,6 +9,11 @@ import { Root, Element, ElementContent } from "hast"
 import { GlobalConfiguration } from "../cfg"
 import { i18n } from "../i18n"
 
+// @ts-ignore: this is safe, we don't want to actually make darkmode.inline.ts a module as
+// modules are automatically deferred and we don't want that to happen for critical beforeDOMLoads
+// see: https://v8.dev/features/modules#defer
+import parallaxSetup from "./scripts/parallax-setup.inline"
+
 interface RenderComponents {
   head: QuartzComponent
   header: QuartzComponent[]
@@ -216,22 +221,17 @@ export function renderPage(
     <html lang={lang}>
       <Head {...componentData} />
       <body data-slug={slug}>
-        {/* TODO: any way to not load in both all the time? would be easy if you couldn't be in dark mode and have (prefers-color-scheme:light) at the same time */}
-        <img class="background-parallax light" src="/static/pleroma-light.svg" />
-        <img class="background-parallax dark" src="/static/pleroma-dark.svg" />
         <noscript>
-          <style dangerouslySetInnerHTML={{__html:".background-parallax{opacity:.5}"}}></style>
+          <img class="background-parallax light" src="/static/pleroma-light.svg" aria-hidden />
+          <img class="background-parallax dark" src="/static/pleroma-dark.svg" aria-hidden />
         </noscript>
-        {/* 
-          1. get each `img.background-parallax` above,
-          2. set each's `onload` to make the opacity .5,
-          3. set a 300ms timeout to do the same 
-
-          this ensures the image smoothly loads in in every case other than 1. no-js 2. really bad internet connections
-          */
-        }
+        <img class="background-parallax light" data-src="/static/pleroma-light.svg" aria-hidden />
+        <img class="background-parallax dark" data-src="/static/pleroma-dark.svg" aria-hidden />
+        <noscript>
+          <style dangerouslySetInnerHTML={{__html:".background-parallax{opacity:.5}img[data-src]{display:none}"}}></style>
+        </noscript>
         <script
-          dangerouslySetInnerHTML={{__html:`[...document.querySelectorAll("img.background-parallax")].map(e=>setTimeout(e.onload=()=>{e.style.opacity=.5},300))`}}>
+          dangerouslySetInnerHTML={{__html:parallaxSetup}}>
         </script>
         <div id="quartz-root" class="page">
           <Body {...componentData}>
