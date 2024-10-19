@@ -38,6 +38,7 @@ export type ThemeKey = keyof Colors
 
 const DEFAULT_SANS_SERIF =
   '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif'
+const DEFAULT_SERIF = "'Times New Roman', Times, serif"
 const DEFAULT_MONO = "ui-monospace, SFMono-Regular, SF Mono, Menlo, monospace"
 
 function makeFamilySection(theme: Theme, family: string | string[], defaultFeatures: string) {
@@ -90,8 +91,8 @@ ${stylesheet.join("\n\n")}
   --highlight: ${theme.colors.lightMode.highlight};
   --textHighlight: ${theme.colors.lightMode.textHighlight};
 
-  --headerFont: ${renderFonts(theme.typography.header)}, ${DEFAULT_SANS_SERIF};
-  --bodyFont: ${renderFonts(theme.typography.body)}, ${DEFAULT_SANS_SERIF};
+  --headerFont: ${renderFonts(theme.typography.header)}, ${DEFAULT_SERIF};
+  --bodyFont: ${renderFonts(theme.typography.body)}, "Doulos SIL", ${DEFAULT_SERIF};
   --codeFont: ${renderFonts(theme.typography.code)}, ${DEFAULT_MONO};
 }
 

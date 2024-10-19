@@ -22,16 +22,10 @@ const config: QuartzConfig = {
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
-      fonts: {
-        "Work Sans": { features: "wght@400..700" },
-        "Inter": { features: "ital,wght@0,100..900;1,100..900" },
-        "Noto Sans": { features: "ital,wght@0,100..900;1,100..900" },
-        "Fira Code": { features: "wght@400;700" },
-      },
       typography: {
-        header: "Work Sans",
-        body: ["Inter", "Noto Sans"],
-        code: "Fira Code",
+        header: "Crimson Pro",
+        body: ["Source Serif 4", "Noto Serif"],
+        code: "Fira Code"
       },
       colors: {
         lightMode: {

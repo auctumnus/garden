@@ -18,4 +18,4 @@ my fork of [quartz](https://jzhao.xyz)
 
 ## license
 
-quartz and thus garden qua software is MIT; garden qua content is CC-BY-SA 🅭🅯🄎
+quartz and thus garden qua software is MIT; garden qua content is CC-BY-SA 🅭🅯🄎. content in quartz/static/fonts is under the OFL (see google fonts)
