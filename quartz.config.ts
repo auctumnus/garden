@@ -17,7 +17,7 @@ const config: QuartzConfig = {
     },
     locale: "en-US",
     baseUrl: "garden.autumns.page",
-    ignorePatterns: ["private", "templates", ".obsidian", ".trash"],
+    ignorePatterns: ["private", "templates", ".obsidian", ".trash", ".stignore", ".stfolder", ".gitkeep", "tabletop/the-long-winter"],
     defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",

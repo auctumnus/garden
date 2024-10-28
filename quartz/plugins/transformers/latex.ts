@@ -40,6 +40,7 @@ export const Latex: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
               src: "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/copy-tex.min.js",
               loadTime: "afterDOMReady",
               contentType: "external",
+              defer: true,
             },
           ],
         }

@@ -24,11 +24,14 @@ const applyPosition = ({top, left}: { top: number, left: number }) => {
     parallaxEl.forEach(el => el.style.objectPosition = `${left}% ${top}%`)
 }
 
+window.applyPosition = applyPosition
+
 const findDesiredPosition = () => {
-    const topPercentage = window.scrollY / (document.body.scrollHeight - window.innerHeight)
+    const numberOfScreens = Math.ceil(document.body.scrollHeight / window.innerHeight)
+    const topPercentage = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) / Math.max(1, 10 - numberOfScreens)
     let top = lerp(MIN_TOP, MAX_TOP, topPercentage)
-     // handle one-screen pages
-     if(document.body.scrollHeight <= window.innerHeight) {
+    // handle one-screen pages
+    if(document.body.scrollHeight <= window.innerHeight) {
         top = MIN_TOP
     }
     const leftPercentage = lastMouseX / window.innerWidth
@@ -41,6 +44,8 @@ const findDesiredPosition = () => {
 
     return { top, left }
 }
+
+window.findDesiredPosition = findDesiredPosition
 
 const scrollHandler = () => {
     applyPosition(findDesiredPosition())
@@ -96,7 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 document.addEventListener("nav", () => {
-    parallaxEl = [...document.querySelectorAll(".background-parallax")!] as HTMLElement[]
+    console.log(parallaxEl)
+    parallaxEl = [...document.querySelectorAll(".background-parallax:not(.noscript)")!] as HTMLElement[]
     // const currentTop = parseFloat(parallaxEl.style.backgroundPositionY.replace("%","") || "0")
     // const currentLeft = parseFloat(parallaxEl.style.backgroundPositionX.replace("%","") || "0")
     //animateFrom(currentTop, currentLeft)

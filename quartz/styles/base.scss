@@ -867,6 +867,14 @@ h1, h2, h3, h4, h5, h6 {
   [saved-theme="dark"] & {
     color: var(--color-100);
   }
+
+  &:has(+ ul, ol) {
+    margin-bottom: 0;
+  }
+
+  + ul, ol {
+    margin-top: 0.5em !important;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -951,9 +959,16 @@ pre {
   padding: 0 0.5rem;
   border-radius: 5px;
   overflow-x: auto;
-  border: 1px solid var(--lightgray);
+  --bg-rgb: 223, 228, 215;
+  --bg: rgba(var(--bg-rgb), 0.5);
+
+  @include dark {
+    --bg-rgb: 57, 54, 57;
+  }
+
+  border: 1px solid var(--bg);
   position: relative;
-  background-color: var(--lightgray);
+  background-color: var(--bg);
 
   &:has(> code.mermaid) {
     border: none;

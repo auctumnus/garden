@@ -1,6 +1,6 @@
 const isDark = window.matchMedia('(prefers-color-scheme: dark)')
 export const si = (derivedTheme: string) => {
-    let el = document.querySelector<HTMLImageElement>(`.background-parallax.${derivedTheme}`)!
+    let el = document.querySelector<HTMLImageElement>(`.background-parallax.${derivedTheme}[data-src]`)!
    if(!el.src) {
     el.src = el.getAttribute('data-src')!
    }

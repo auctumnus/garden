@@ -5,6 +5,7 @@ export type JSResource = {
   loadTime: "beforeDOMReady" | "afterDOMReady"
   moduleType?: "module"
   spaPreserve?: boolean
+  defer?: boolean
 } & (
   | {
       src: string
@@ -21,7 +22,7 @@ export function JSResourceToScriptElement(resource: JSResource, preserve?: boole
   const spaPreserve = preserve ?? resource.spaPreserve
   if (resource.contentType === "external") {
     return (
-      <script key={resource.src} src={resource.src} type={scriptType} spa-preserve={spaPreserve} />
+      <script key={resource.src} src={resource.src} type={scriptType} spa-preserve={spaPreserve} defer={resource.defer} />
     )
   } else {
     const content = resource.script

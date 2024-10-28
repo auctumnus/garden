@@ -1,5 +1,6 @@
 import micromorph from "micromorph"
 import { FullSlug, RelativeURL, getFullSlug, normalizeRelativeURLs } from "../../util/path"
+import { setImage, si } from "./set-image.inline"
 
 // adapted from `micromorph`
 // https://github.com/natemoo-re/micromorph
@@ -80,8 +81,25 @@ async function navigate(url: URL, isBack: boolean = false) {
   announcer.dataset.persist = ""
   html.body.appendChild(announcer)
 
+  const existingParallaxImages = [...document.querySelectorAll('.background-parallax:not(.noscript)')].filter(el => el.src).map(el => el.classList)
+  const shouldSetLight = existingParallaxImages.some(el => el.contains('light'))
+  const shouldSetDark = existingParallaxImages.some(el => el.contains('dark'))
+
   // morph body
   micromorph(document.body, html.body)
+
+  if(shouldSetLight) {
+    si('light')
+  }
+  if(shouldSetDark) {
+    si('dark')
+  }
+
+  window.applyPosition(window.findDesiredPosition())
+
+  ;[...document.querySelectorAll('.background-parallax:not(.noscript)')].filter(el => el.src).forEach(el => {
+    el.style.transition = 'opacity 1s ease-in-out, object-position 100ms ease-in-out'
+  })
 
   // scroll into place and add history
   if (!isBack) {
@@ -92,6 +110,12 @@ async function navigate(url: URL, isBack: boolean = false) {
       window.scrollTo({ top: 0 })
     }
   }
+
+  window.applyPosition(window.findDesiredPosition())
+
+  ;[...document.querySelectorAll('.background-parallax:not(.noscript)')].filter(el => el.src).forEach(el => {
+    el.style.transition = 'opacity 1s ease-in-out'
+  })
 
   // now, patch head
   const elementsToRemove = document.head.querySelectorAll(":not([spa-preserve])")
@@ -104,6 +128,9 @@ async function navigate(url: URL, isBack: boolean = false) {
   if (!isBack) {
     history.pushState({}, "", url)
   }
+
+  // si('dark')
+  // si('light')
   notifyNav(getFullSlug(window))
   delete announcer.dataset.persist
 }

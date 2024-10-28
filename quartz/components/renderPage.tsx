@@ -222,11 +222,11 @@ export function renderPage(
       <Head {...componentData} />
       <body data-slug={slug}>
         <noscript>
-          <img class="background-parallax light" src="/static/pleroma-light.svg" aria-hidden />
-          <img class="background-parallax dark" src="/static/pleroma-dark.svg" aria-hidden />
+          <img class="background-parallax light noscript" src="/static/pleroma-light.svg" aria-hidden spa-preserve />
+          <img class="background-parallax dark noscript" src="/static/pleroma-dark.svg" aria-hidden spa-preserve />
         </noscript>
-        <img class="background-parallax light" data-src="/static/pleroma-light.svg" aria-hidden />
-        <img class="background-parallax dark" data-src="/static/pleroma-dark.svg" aria-hidden />
+        <img class="background-parallax light" data-src="/static/pleroma-light.svg" aria-hidden spa-preserve />
+        <img class="background-parallax dark" data-src="/static/pleroma-dark.svg" aria-hidden spa-preserve />
         <noscript>
           <style dangerouslySetInnerHTML={{__html:".background-parallax{opacity:.5}img[data-src]{display:none}"}}></style>
         </noscript>
