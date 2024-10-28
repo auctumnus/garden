@@ -7,6 +7,8 @@ my fork of [quartz](https://quartz.jzhao.xyz)
 1. `npm i`
 2. `ln -s ~/share/garden ./content`
 
+you may also want to `git remote add upstream git@github.com:jackyzha0/quartz.git`
+
 ### serve (local dev)
 
 `npm run quartz build --serve`
