@@ -1,6 +1,6 @@
 # garden
 
-my fork of [quartz](https://jzhao.xyz)
+my fork of [quartz](https://quartz.jzhao.xyz)
 
 ## setup
 
